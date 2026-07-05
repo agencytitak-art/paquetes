@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paquetes · Presencia Digital Local</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --azul: #4285F4;
+  --rojo: #EA4335;
+  --amarillo: #FBBC04;
+  --verde: #34A853;
+  --verde-oscuro: #188038;
+  --tinta: #202124;       /* gris Google para texto */
+  --tinta-suave: #5F6368;
+  --fondo: #F8F9FA;
+  --blanco: #FFFFFF;
+  --azul-suave: #E8F0FE;
+  --verde-suave: #E6F4EA;
+  --amarillo-suave: #FEF7E0;
+  --linea: #E8EAED;
+  --radius-org: 28px 60px 28px 60px; /* curva orgánica firma */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Instrument Sans", -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--fondo);
+  color: var(--tinta);
+  line-height: 1.5;
+  font-size: 16px;
+}
+
+.wrap {
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 0 20px 48px;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  position: relative;
+  padding: 44px 0 30px;
+  overflow: visible;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -80px; right: -110px;
+  width: 240px; height: 240px;
+  background: var(--azul-suave);
+  border-radius: 46% 54% 60% 40% / 50% 42% 58% 50%;
+  z-index: 0;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 96px; right: 4px;
+  width: 56px; height: 56px;
+  background: var(--amarillo-suave);
+  border-radius: 58% 42% 45% 55% / 48% 60% 40% 52%;
+  z-index: 0;
+}
+.hero > * { position: relative; z-index: 1; }
+.dots {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.dots span {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.dots span:nth-child(1) { background: var(--azul); }
+.dots span:nth-child(2) { background: var(--rojo); }
+.dots span:nth-child(3) { background: var(--amarillo); }
+.dots span:nth-child(4) { background: var(--verde); }
+.eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+  margin-bottom: 12px;
+}
+.hero h1 {
+  font-family: "Bricolage Grotesque", "Instrument Sans", sans-serif;
+  font-weight: 800;
+  font-size: 34px;
+  line-height: 1.12;
+  letter-spacing: -0.5px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--azul);
+}
+.hero p {
+  margin-top: 12px;
+  font-size: 15px;
+  color: var(--tinta-suave);
+  max-width: 34ch;
+}
+
+/* ---------- PROBLEMA (qué resuelvo) ---------- */
+.problema {
+  background: var(--blanco);
+  border: 1.5px solid var(--linea);
+  border-radius: var(--radius-org);
+  padding: 24px;
+  margin-bottom: 28px;
+}
+.problema h2 {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.problema h2 em { font-style: normal; color: var(--rojo); }
+.problema p {
+  font-size: 14.5px;
+  color: var(--tinta-suave);
+  margin-bottom: 10px;
+}
+.problema p:last-child { margin-bottom: 0; }
+.problema .clave {
+  color: var(--tinta);
+  font-weight: 600;
+}
+
+/* ---------- DATOS ---------- */
+.datos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.dato {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--blanco);
+  border: 1.5px solid var(--linea);
+  border-radius: 18px;
+  padding: 12px 16px;
+}
+.dato .num {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+  min-width: 86px;
+}
+.dato:nth-child(1) .num { color: var(--azul); }
+.dato:nth-child(2) .num { color: var(--verde-oscuro); }
+.dato:nth-child(3) .num { color: #B06000; }
+.dato .txt {
+  font-size: 13px;
+  color: var(--tinta-suave);
+}
+.datos-fine {
+  font-size: 11.5px;
+  color: var(--tinta-suave);
+  margin: -18px 4px 28px;
+}
+
+/* ---------- PREGUNTAS DIRECTAS ---------- */
+.faq {
+  margin-top: 36px;
+}
+.faq h3 {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.faq-item {
+  background: var(--blanco);
+  border: 1.5px solid var(--linea);
+  border-radius: 20px;
+  padding: 16px 18px;
+  margin-bottom: 12px;
+}
+.faq-item .q {
+  font-weight: 600;
+  font-size: 14.5px;
+  margin-bottom: 6px;
+}
+.faq-item .a {
+  font-size: 13.5px;
+  color: var(--tinta-suave);
+}
+
+/* ---------- CARDS ---------- */
+.cards { display: flex; flex-direction: column; gap: 22px; margin-top: 8px; }
+
+.card {
+  background: var(--blanco);
+  border: 1.5px solid var(--linea);
+  border-radius: var(--radius-org);
+  padding: 26px 24px 24px;
+  position: relative;
+}
+
+.card .tier {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+.card h2 {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  margin-top: 2px;
+}
+.card.basico h2 { color: var(--azul); }
+.card.premium h2 { color: var(--verde-oscuro); }
+.price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 12px 0 4px;
+}
+.price .amount {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 800;
+  font-size: 42px;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.price .iva {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--tinta-suave);
+}
+.card .tagline {
+  font-size: 14px;
+  color: var(--tinta-suave);
+  margin-bottom: 16px;
+}
+
+.includes { list-style: none; }
+.includes li {
+  display: flex;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 14.5px;
+  border-top: 1px solid var(--linea);
+}
+.includes li:first-child { border-top: none; }
+.includes .check {
+  flex-shrink: 0;
+  width: 20px; height: 20px;
+  margin-top: 1px;
+  border-radius: 40% 60% 55% 45% / 55% 45% 60% 40%;
+  background: var(--azul-suave);
+  color: var(--azul);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.card.premium .includes .check {
+  background: var(--verde-suave);
+  color: var(--verde-oscuro);
+}
+.includes .plus {
+  background: var(--amarillo);
+  color: var(--tinta);
+}
+.card.premium .includes .plus {
+  background: var(--verde-oscuro);
+  color: var(--blanco);
+}
+
+/* Card destacada (Completo) — azul Google */
+.card.featured {
+  background: var(--azul);
+  color: var(--blanco);
+  border-color: var(--azul);
+  box-shadow: 0 16px 36px rgba(66,133,244,0.32);
+}
+.card.featured .tier { color: var(--amarillo); }
+.card.featured .tagline,
+.card.featured .price .iva { color: #D2E3FC; }
+.card.featured .includes li { border-color: rgba(255,255,255,0.22); }
+.card.featured .includes .check {
+  background: var(--blanco);
+  color: var(--azul);
+}
+.card.featured .includes .plus {
+  background: var(--amarillo);
+  color: var(--tinta);
+}
+.badge {
+  position: absolute;
+  top: -13px;
+  right: 26px;
+  background: var(--amarillo);
+  color: var(--tinta);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+.note-premium {
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--tinta-suave);
+}
+.excl-premium {
+  margin-top: 14px;
+  padding: 10px 12px;
+  background: var(--fondo);
+  border-left: 3px solid var(--amarillo);
+  border-radius: 0 10px 10px 0;
+  font-size: 12.5px;
+  color: var(--tinta-suave);
+}
+
+/* ---------- DIVISOR ONDULADO ---------- */
+.wave {
+  display: block;
+  width: 100%;
+  height: 44px;
+  margin: 40px 0 0;
+}
+
+/* ---------- VITRINA — amarillo Google ---------- */
+.vitrina {
+  background: var(--amarillo-suave);
+  border: 1.5px solid #FDE293;
+  border-radius: 60px 28px 60px 28px; /* curva invertida: sección distinta */
+  padding: 30px 24px 26px;
+  margin-top: -6px;
+  position: relative;
+}
+.vitrina .tier {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: #B06000; /* ámbar oscuro legible sobre amarillo suave */
+}
+.vitrina h2 {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 800;
+  font-size: 26px;
+  line-height: 1.15;
+  margin-top: 4px;
+}
+.vitrina .v-price {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 14px 0 4px;
+}
+.vitrina .v-price .old {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--rojo);
+  text-decoration: line-through;
+}
+.vitrina .v-price .amount {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 800;
+  font-size: 42px;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: var(--verde-oscuro);
+}
+.vitrina .v-price .iva {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--tinta-suave);
+}
+.vitrina .sub {
+  font-size: 14px;
+  color: var(--tinta-suave);
+  margin-bottom: 16px;
+}
+.vitrina h3 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 16px 0 6px;
+}
+.vitrina ul { list-style: none; }
+.vitrina li {
+  display: flex;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 14.5px;
+}
+.vitrina li::before {
+  content: "→";
+  font-weight: 700;
+  color: #B06000;
+}
+.vitrina .fine {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1.5px dashed #FBBC04;
+  font-size: 13px;
+  color: var(--tinta-suave);
+}
+
+/* ---------- CONDICIONES GENERALES ---------- */
+.terms {
+  margin-top: 36px;
+  padding: 22px 24px;
+  background: var(--blanco);
+  border: 1.5px solid var(--linea);
+  border-radius: var(--radius-org);
+}
+.terms h3 {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.terms ul { list-style: none; }
+.terms li {
+  display: flex;
+  gap: 10px;
+  padding: 5px 0;
+  font-size: 13.5px;
+  color: var(--tinta-suave);
+}
+.terms li:nth-child(4n+1)::before { content: "•"; color: var(--azul); font-weight: 700; }
+.terms li:nth-child(4n+2)::before { content: "•"; color: var(--rojo); font-weight: 700; }
+.terms li:nth-child(4n+3)::before { content: "•"; color: var(--amarillo); font-weight: 700; }
+.terms li:nth-child(4n+4)::before { content: "•"; color: var(--verde); font-weight: 700; }
+
+.footer {
+  margin-top: 28px;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--tinta-suave);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .card, .vitrina, .terms {
+    animation: rise 0.5s ease both;
+  }
+  .cards .card:nth-child(2) { animation-delay: 0.08s; }
+  .cards .card:nth-child(3) { animation-delay: 0.16s; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="dots"><span></span><span></span><span></span><span></span></div>
+    <span class="eyebrow">Presencia digital local · Del Valle</span>
+    <h1>Que más gente te encuentre <em>y confíe</em> en tu café.</h1>
+    <p>Tu perfil de Google completo y profesional, en una sola entrega. Sin mensualidades. Todo queda a tu nombre.</p>
+  </header>
+
+  <!-- PROBLEMA: qué resuelvo -->
+  <section class="problema">
+    <h2>El cliente que <em>no entró</em> a tu café</h2>
+    <p>Cuando alguien camina por la colonia con antojo de café, saca el celular y ve 3 o 4 opciones en Google Maps. Entra a la que tiene mejores fotos y reseñas — <span class="clave">no a la del mejor café</span>.</p>
+    <p>Si tu ficha está incompleta o con fotos que no le hacen justicia a tu producto, ese cliente se va a la otra cuadra. Y tú nunca te enteras.</p>
+    <p><span class="clave">Eso es lo que arreglo: que la gente que ya te está buscando, sí entre.</span> No es publicidad ni redes sociales — es tu vitrina en Google, bien puesta, una sola vez.</p>
+  </section>
+
+  <!-- DATOS -->
+  <section class="datos">
+    <div class="dato">
+      <span class="num">8 de 10</span>
+      <span class="txt">búsquedas locales desde el celular terminan en una visita o llamada el mismo día</span>
+    </div>
+    <div class="dato">
+      <span class="num">+42%</span>
+      <span class="txt">más solicitudes de "cómo llegar" reciben los negocios con buenas fotos en su ficha, según datos de Google</span>
+    </div>
+    <div class="dato">
+      <span class="num">2 de 10</span>
+      <span class="txt">negocios en México tienen su presencia digital completa — no por no poder: por falta de tiempo</span>
+    </div>
+  </section>
+  <p class="datos-fine">Datos de estudios de la industria (Google, INEGI/IFT). Son contexto del mercado, no una promesa de resultados para tu negocio.</p>
+
+  <!-- PAQUETES -->
+  <section class="cards">
+
+    <!-- BÁSICO -->
+    <article class="card basico">
+      <span class="tier">Paquete 1</span>
+      <h2>Básico</h2>
+      <div class="price">
+        <span class="amount">$1,044</span>
+        <span class="iva">MXN · IVA incluido</span>
+      </div>
+      <p class="tagline">Tu perfil de Google limpio, completo y contactable.</p>
+      <ul class="includes">
+        <li><span class="check">✓</span>Perfil de Google optimizado: categorías, descripción, atributos, horarios y menú cargado</li>
+        <li><span class="check">✓</span>Botón de WhatsApp en tu perfil</li>
+        <li><span class="check">✓</span>Retoque básico de 5 fotos que ya tienes</li>
+        <li><span class="check">✓</span>Tarjeta QR de reseñas para tu caja</li>
+        <li><span class="check">✓</span>4 plantillas para responder tus reseñas de manera efectiva</li>
+      </ul>
+    </article>
+
+    <!-- COMPLETO -->
+    <article class="card featured">
+      <span class="badge">El más popular</span>
+      <span class="tier">Paquete 2</span>
+      <h2>Completo</h2>
+      <div class="price">
+        <span class="amount">$1,740</span>
+        <span class="iva">MXN · IVA incluido</span>
+      </div>
+      <p class="tagline">Todo lo del Básico más:</p>
+      <ul class="includes">
+        <li><span class="check plus">+</span>Sesión de 10 fotos editadas de tu producto y tu lugar</li>
+        <li><span class="check plus">+</span>Tus reseñas acumuladas del último mes disponible, respondidas para mejorar la percepción del cliente</li>
+        <li><span class="check plus">+</span>WhatsApp Business configurado: catálogo, respuestas rápidas y mensaje de bienvenida</li>
+        <li><span class="check plus">+</span>Plantillas de publicaciones para tu perfil</li>
+        <li><span class="check">✓</span>Todo lo incluido en el Básico</li>
+      </ul>
+    </article>
+
+    <!-- PREMIUM -->
+    <article class="card premium">
+      <span class="tier">Paquete 3</span>
+      <h2>Premium</h2>
+      <div class="price">
+        <span class="amount">$2,900</span>
+        <span class="iva">MXN · IVA incluido</span>
+      </div>
+      <p class="tagline">Todo lo del Completo, más tu propio rincón en internet.</p>
+      <ul class="includes">
+        <li><span class="check plus">+</span>Mini-sitio de 1 página, a tu nombre</li>
+        <li><span class="check plus">+</span>Menú digital</li>
+        <li><span class="check">✓</span>Todo lo incluido en el Completo</li>
+      </ul>
+      <p class="excl-premium">No incluye: dominio, hosting ni mantenimiento del sitio — esos gastos corren por cuenta del cliente (todo queda a tu nombre).</p>
+      <p class="note-premium">Para la mayoría de los cafés, el Completo es el punto ideal: el perfil de Google es lo que más clientes de a pie trae.</p>
+    </article>
+
+  </section>
+
+  <!-- DIVISOR ONDULADO — 4 colores -->
+  <svg class="wave" viewBox="0 0 440 44" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,22 C40,42 75,4 110,16" fill="none" stroke="#4285F4" stroke-width="3" stroke-linecap="round"/>
+    <path d="M110,16 C145,28 180,42 220,26" fill="none" stroke="#EA4335" stroke-width="3" stroke-linecap="round"/>
+    <path d="M220,26 C260,10 295,6 330,18" fill="none" stroke="#FBBC04" stroke-width="3" stroke-linecap="round"/>
+    <path d="M330,18 C365,30 410,16 440,22" fill="none" stroke="#34A853" stroke-width="3" stroke-linecap="round"/>
+  </svg>
+
+  <!-- VITRINA -->
+  <section class="vitrina">
+    <span class="tier">Precio especial · Solo 2 lugares</span>
+    <h2>Caso vitrina: Completo al 50%</h2>
+    <div class="v-price">
+      <span class="old">$1,740</span>
+      <span class="amount">$870</span>
+      <span class="iva">MXN · IVA incluido</span>
+    </div>
+    <p class="sub">Estoy armando mis primeros casos de la zona. Mis dos primeros clientes reciben el paquete Completo íntegro a mitad de precio.</p>
+
+    <h3>Tú recibes</h3>
+    <ul>
+      <li>El paquete Completo, sin recortes</li>
+      <li>Anticipo de $435 y el resto al entregar</li>
+      <li>Factura, como en todos los paquetes</li>
+    </ul>
+
+    <h3>A cambio de</h3>
+    <ul>
+      <li>Un testimonio escrito al terminar</li>
+      <li>Permiso de usar UN antes y UN después en mi portafolio</li>
+      <li>Recomendarme con otros dueños, si quedas satisfecho</li>
+    </ul>
+
+    <p class="fine">Condiciones por escrito antes de empezar. Máximo 2 clientes vitrina; después, precio de lista.</p>
+  </section>
+
+  <!-- PREGUNTAS DIRECTAS -->
+  <section class="faq">
+    <h3>Preguntas directas</h3>
+    <div class="faq-item">
+      <div class="q">"¿Esto no lo puedo hacer yo, gratis?"</div>
+      <div class="a">Sí — el perfil de Google es gratuito y tú mismo lo puedes configurar. La pregunta no es si se puede, es quién tiene tiempo: atender el negocio ya es trabajo de tiempo completo. Lo que pagas no es el acceso, es el trabajo hecho — fotos bien tomadas, perfil completo, sistema de reseñas andando — en una semana y sin que aprendas ninguna herramienta.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">"¿Es como los que me llaman por teléfono 'de parte de Google'?"</div>
+      <div class="a">No. Esas llamadas son fraudes: Google no llama a vender servicios. Yo trabajo en persona, en tu café, con todo por escrito, con factura, y todo queda a tu nombre — cuentas y accesos incluidos. Si mañana no quieres saber nada de mí, tu perfil sigue siendo tuyo.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">"¿Me garantizas más clientes?"</div>
+      <div class="a">No te voy a prometer un número — desconfía de quien lo haga. Lo que sí te garantizo es la entrega: hoy tu ficha compite en desventaja contra cafés con peor producto y mejor vitrina, y eso es exactamente lo que se corrige.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">"¿Y luego me vas a cobrar mensualidad?"</div>
+      <div class="a">No. Es una sola entrega con cierre limpio: manual de 1 página con tus accesos y lista de precios por si algún día quieres cambios. Sin letras chiquitas.</div>
+    </div>
+  </section>
+
+  <!-- CONDICIONES GENERALES -->
+  <section class="terms">
+    <h3>Cómo trabajo</h3>
+    <ul>
+      <li>Una sola entrega, sin mensualidades ni mantenimiento</li>
+      <li>Todo queda a nombre del cliente: tu Google, tus cuentas, tus accesos</li>
+      <li>Manual de 1 página con tus accesos al cierre</li>
+      <li>Anticipo del 50%, resto al entregar · Siempre con factura</li>
+      <li>Garantía de 7 días por errores de entrega</li>
+      <li>Si tu perfil de Google no está reclamado, el dueño lo verifica ante Google y, una vez verificado, se puede contratar el servicio</li>
+    </ul>
+  </section>
+
+  <p class="footer">Precios en MXN con IVA incluido · Del Valle, CDMX · Julio 2026</p>
+
+</div>
+</body>
+</html>
