@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Demo · Café Ámbar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #f1f3f4;
+  color: #202124;
+  line-height: 1.4;
+  font-size: 14px;
+  min-height: 100vh;
+  padding-bottom: 110px; /* espacio para el botón flotante de WhatsApp */
+}
+
+/* ---------- NAVEGACIÓN (mismo look que la página de paquetes) ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  background: rgba(255,255,255,0.94);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-bottom: 1.5px solid #E8EAED;
+  height: 56px;
+}
+.nav-inner {
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-mark { display: flex; gap: 5px; text-decoration: none; }
+.nav-mark span { width: 9px; height: 9px; border-radius: 50%; }
+.nav-mark span:nth-child(1) { background: #4285F4; }
+.nav-mark span:nth-child(2) { background: #EA4335; }
+.nav-mark span:nth-child(3) { background: #FBBC04; }
+.nav-mark span:nth-child(4) { background: #34A853; }
+.nav-links { display: flex; gap: 2px; }
+.nav-links a {
+  font-family: "Bricolage Grotesque", -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #5F6368;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+.nav-links a:hover { color: #202124; }
+.nav-links a.active { background: #E8F0FE; color: #4285F4; }
+.nav-links a.nav-contacto { color: #188038; }
+@media (min-width: 768px) {
+  .nav-inner { max-width: 1120px; padding: 0 36px; }
+}
+
+/* ---------- BOTÓN FLOTANTE WHATSAPP ---------- */
+.wa-float {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 58px; height: 58px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 22px rgba(37,211,102,0.4), 0 3px 8px rgba(0,0,0,0.15);
+  z-index: 400;
+}
+.wa-float:active { transform: scale(0.95); }
+.wa-float svg { width: 32px; height: 32px; fill: #FFFFFF; display: block; }
+@media (min-width: 768px) {
+  .wa-float { right: 28px; bottom: 28px; }
+}
+
+/* Phone frame container — visible on desktop, full-width on mobile */
+.frame {
+  max-width: 412px;
+  margin: 0 auto;
+  background: #fff;
+  min-height: 100vh;
+  box-shadow: 0 0 24px rgba(0,0,0,0.08);
+  position: relative;
+  overflow-x: clip;
+}
+
+/* Toggle bar — sticky debajo de la navegación */
+.toggle-bar {
+  position: sticky;
+  top: 56px;
+  z-index: 100;
+  background: #202124;
+  color: #fff;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.toggle-bar .label {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #9aa0a6;
+  margin-right: 4px;
+}
+.toggle-bar button {
+  flex: 1;
+  background: transparent;
+  color: #9aa0a6;
+  border: 1px solid #5f6368;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+.toggle-bar button.active {
+  background: #fff;
+  color: #202124;
+  border-color: #fff;
+}
+.toggle-bar button .dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: 1px;
+}
+.toggle-bar button .antes-dot { background: #ea4335; }
+.toggle-bar button .despues-dot { background: #34a853; }
+
+/* Google search bar mock */
+.search-bar {
+  background: #fff;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #e8eaed;
+}
+.search-bar .menu-icon {
+  width: 22px;
+  height: 22px;
+  color: #5f6368;
+}
+.search-bar .query {
+  flex: 1;
+  font-size: 14px;
+  color: #5f6368;
+}
+.search-bar .avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fbbc04, #ea4335);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* Hero photo area */
+.hero {
+  height: 220px;
+  position: relative;
+  background: #dadce0;
+}
+.hero-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: #e8eaed;
+  color: #80868b;
+  gap: 8px;
+}
+.hero-empty .icon {
+  width: 48px;
+  height: 48px;
+  opacity: 0.6;
+}
+.hero-empty .text {
+  font-size: 13px;
+}
+.hero-photo {
+  height: 100%;
+  background: linear-gradient(135deg, #c89968 0%, #8b5a3c 50%, #5a3a26 100%);
+  position: relative;
+  overflow: hidden;
+}
+.hero-photo::before {
+  content: "";
+  position: absolute;
+  top: 30px; left: 40px;
+  width: 100px; height: 100px;
+  background: radial-gradient(circle, #f4c896 30%, #d4a373 60%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(2px);
+}
+.hero-photo::after {
+  content: "";
+  position: absolute;
+  bottom: 20px; right: 30px;
+  width: 80px; height: 80px;
+  background: radial-gradient(ellipse, #e8c39e 20%, #c89968 50%, transparent 70%);
+  border-radius: 40%;
+  filter: blur(3px);
+}
+.hero-overlay-pastry {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+}
+.photo-count {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Title section */
+.title-section {
+  padding: 16px;
+  background: #fff;
+}
+.business-name {
+  font-size: 22px;
+  font-weight: 400;
+  color: #202124;
+  margin-bottom: 4px;
+}
+.business-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #5f6368;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.rating {
+  color: #202124;
+  font-weight: 500;
+}
+.rating .stars {
+  color: #fbbc04;
+  letter-spacing: -1px;
+}
+.review-link {
+  color: #1a73e8;
+}
+.review-badge {
+  background: #e6f4ea;
+  color: #137333;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 4px;
+}
+.category-line {
+  font-size: 13px;
+  color: #5f6368;
+}
+.status-line {
+  margin-top: 6px;
+  font-size: 13px;
+}
+.status-open { color: #137333; font-weight: 500; }
+.status-closed { color: #c5221f; font-weight: 500; }
+
+/* Action buttons row */
+.actions {
+  display: flex;
+  padding: 12px 8px;
+  background: #fff;
+  border-bottom: 8px solid #f1f3f4;
+  gap: 4px;
+  overflow-x: auto;
+}
+.action-btn {
+  flex: 1;
+  min-width: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+.action-btn .ico {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e8f0fe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a73e8;
+  font-size: 18px;
+}
+.action-btn .ico.disabled {
+  background: #f1f3f4;
+  color: #bdc1c6;
+}
+.action-btn .ico.wa {
+  background: #e6f4ea;
+  color: #25d366;
+}
+.action-btn .lbl {
+  font-size: 11px;
+  color: #1a73e8;
+  font-weight: 500;
+}
+.action-btn .lbl.disabled { color: #80868b; }
+.action-btn .lbl.wa { color: #137333; }
+
+/* Section block */
+.section {
+  background: #fff;
+  padding: 16px;
+  border-bottom: 8px solid #f1f3f4;
+}
+.section:last-child { border-bottom: none; }
+.section-title {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: #202124;
+}
+
+/* About */
+.about-text {
+  font-size: 14px;
+  color: #3c4043;
+  line-height: 1.5;
+}
+.about-text.short {
+  color: #80868b;
+  font-style: italic;
+}
+.attribute-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.chip {
+  background: #f1f3f4;
+  color: #3c4043;
+  padding: 5px 10px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.empty-line {
+  color: #80868b;
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* Photos grid */
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+.photo-thumb {
+  aspect-ratio: 1;
+  background: #e8eaed;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+.photo-thumb.dark { background: #3c4043; color: #80868b; font-size: 14px; }
+.photo-thumb.dark-1 { background: linear-gradient(135deg, #5a4a3a, #3a2a1a); }
+.photo-thumb.dark-2 { background: linear-gradient(135deg, #4a4a4a, #2a2a2a); }
+.photo-thumb.dark-3 { background: linear-gradient(135deg, #6a5a4a, #4a3a2a); }
+.photo-thumb.nice-1 { background: linear-gradient(135deg, #d4a373, #a07853); }
+.photo-thumb.nice-2 { background: linear-gradient(135deg, #f0d4a8, #d4a373); }
+.photo-thumb.nice-3 { background: linear-gradient(135deg, #c8956d, #8b5a3c); }
+.photo-thumb.nice-4 { background: linear-gradient(135deg, #f4e0c2, #d4b48c); }
+.photo-thumb.nice-5 { background: linear-gradient(135deg, #b87f5a, #6e4a32); }
+.photo-thumb.nice-6 { background: linear-gradient(135deg, #e8c4a0, #b88560); }
+.photo-thumb .icon-overlay {
+  position: absolute;
+  font-size: 36px;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2));
+}
+.photo-thumb.more {
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Hours */
+.hours-list { font-size: 13px; }
+.hours-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+.hours-row .day { color: #3c4043; }
+.hours-row .time { color: #3c4043; }
+.hours-row.today .day, .hours-row.today .time { font-weight: 600; }
+.hours-row.wrong {
+  background: #fce8e6;
+  margin: 0 -8px;
+  padding: 6px 8px;
+  border-radius: 4px;
+}
+.hours-row.wrong .time {
+  color: #c5221f;
+  font-weight: 600;
+}
+.hours-note {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #c5221f;
+  background: #fce8e6;
+  padding: 10px 12px;
+  border-radius: 6px;
+  display: flex;
+  gap: 8px;
+}
+.hours-note .icon { flex-shrink: 0; }
+
+/* Menu */
+.menu-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px;
+  color: #80868b;
+}
+.menu-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.menu-section .menu-section-title {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #5f6368;
+  margin-bottom: 8px;
+}
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 13px;
+  color: #3c4043;
+  border-bottom: 1px solid #f1f3f4;
+}
+.menu-item:last-child { border-bottom: none; }
+.menu-item .price { color: #5f6368; font-weight: 500; }
+
+/* Posts */
+.post-empty {
+  padding: 24px;
+  text-align: center;
+  color: #80868b;
+  font-size: 13px;
+}
+.posts-list { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 4px; }
+.post-card {
+  flex-shrink: 0;
+  width: 200px;
+  border: 1px solid #e8eaed;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.post-card .post-img {
+  height: 100px;
+  background: linear-gradient(135deg, #c89968, #8b5a3c);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+.post-card .post-img.b { background: linear-gradient(135deg, #d4a373, #a07853); }
+.post-card .post-img.c { background: linear-gradient(135deg, #e8c39e, #b88560); }
+.post-card .post-body {
+  padding: 10px;
+  font-size: 12px;
+  color: #3c4043;
+  line-height: 1.4;
+}
+.post-card .post-body .post-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+/* Reviews */
+.review {
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f3f4;
+}
+.review:last-child { border-bottom: none; }
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.review-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: linear-gradient(135deg, #4285f4, #1a73e8);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 600; font-size: 13px;
+}
+.review-avatar.b { background: linear-gradient(135deg, #34a853, #137333); }
+.review-avatar.c { background: linear-gradient(135deg, #fbbc04, #f9ab00); }
+.review-name { font-size: 13px; font-weight: 500; color: #202124; }
+.review-meta { font-size: 12px; color: #5f6368; }
+.review-stars { color: #fbbc04; font-size: 13px; letter-spacing: -1px; margin-bottom: 4px; }
+.review-text { font-size: 13px; color: #3c4043; }
+.owner-reply {
+  margin-top: 10px;
+  background: #f8f9fa;
+  border-left: 3px solid #1a73e8;
+  padding: 10px 12px;
+  border-radius: 0 6px 6px 0;
+}
+.owner-reply-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1a73e8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.owner-reply-text {
+  font-size: 12px;
+  color: #3c4043;
+  line-height: 1.5;
+}
+
+/* Highlight markers (only on después) */
+.highlight {
+  position: relative;
+}
+.highlight::before {
+  content: "✦";
+  position: absolute;
+  left: -14px;
+  top: 0;
+  color: #34a853;
+  font-size: 12px;
+}
+
+/* Hide/show */
+.view { display: none; }
+.view.active { display: block; }
+
+/* Smooth transition */
+.frame * { transition: background-color 0.15s ease, color 0.15s ease; }
+</style>
+</head>
+<body>
+
+<!-- NAVEGACIÓN -->
+<nav class="nav" aria-label="Navegación principal">
+  <div class="nav-inner">
+    <a class="nav-mark" href="index.html" aria-label="Inicio"><span></span><span></span><span></span><span></span></a>
+    <div class="nav-links">
+      <a href="index.html">Paquetes</a>
+      <a href="demo.html" class="active" aria-current="page">Demo</a>
+      <a class="nav-contacto" href="https://wa.me/525544780025?text=Hola%2C%20vi%20tu%20p%C3%A1gina%20de%20paquetes" target="_blank" rel="noopener">Contacto</a>
+    </div>
+  </div>
+</nav>
+
+<div class="frame">
+
+  <!-- TOGGLE -->
+  <div class="toggle-bar">
+    <span class="label">Demo</span>
+    <button id="btn-antes" class="active" onclick="setView('antes')">
+      <span class="dot antes-dot"></span>Antes
+    </button>
+    <button id="btn-despues" onclick="setView('despues')">
+      <span class="dot despues-dot"></span>Después
+    </button>
+  </div>
+
+  <!-- ANTES VIEW -->
+  <div id="view-antes" class="view active">
+
+    <!-- Search bar -->
+    <div class="search-bar">
+      <svg class="menu-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      <span class="query">café ámbar del valle</span>
+      <div class="avatar">A</div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-empty">
+        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+        </svg>
+        <div class="text">Sin foto principal</div>
+      </div>
+      <div class="photo-count">📷 4</div>
+    </div>
+
+    <!-- Title -->
+    <div class="title-section">
+      <div class="business-name">Café Ámbar</div>
+      <div class="business-meta">
+        <span class="rating">4.6 <span class="stars">★★★★★</span></span>
+        <a class="review-link">(27)</a>
+        <span>·</span>
+        <span>$</span>
+      </div>
+      <div class="category-line">Cafetería</div>
+      <div class="status-line">
+        <span class="status-closed">Cerrado</span>
+        <span style="color:#5f6368"> · Abre lun 8:00</span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="action-btn">
+        <div class="ico">📍</div>
+        <div class="lbl">Cómo llegar</div>
+      </button>
+      <button class="action-btn">
+        <div class="ico">📞</div>
+        <div class="lbl">Llamar</div>
+      </button>
+      <button class="action-btn">
+        <div class="ico disabled">🌐</div>
+        <div class="lbl disabled">Sitio web</div>
+      </button>
+      <button class="action-btn">
+        <div class="ico disabled">📋</div>
+        <div class="lbl disabled">Menú</div>
+      </button>
+      <button class="action-btn">
+        <div class="ico">↗</div>
+        <div class="lbl">Compartir</div>
+      </button>
+    </div>
+
+    <!-- About -->
+    <div class="section">
+      <div class="section-title">Acerca de</div>
+      <div class="about-text short">Cafetería en Del Valle.</div>
+      <div class="empty-line" style="margin-top:12px">Sin atributos · Sin servicios · Sin información de accesibilidad</div>
+    </div>
+
+    <!-- Photos -->
+    <div class="section">
+      <div class="section-title">Fotos (4)</div>
+      <div class="photos-grid">
+        <div class="photo-thumb dark dark-1"></div>
+        <div class="photo-thumb dark dark-2"></div>
+        <div class="photo-thumb dark dark-3"></div>
+        <div class="photo-thumb dark dark-1"></div>
+      </div>
+      <div class="empty-line" style="margin-top:10px">Todas subidas por clientes · Sin fotos del dueño</div>
+    </div>
+
+    <!-- Hours -->
+    <div class="section">
+      <div class="section-title">Horario</div>
+      <div class="hours-list">
+        <div class="hours-row"><span class="day">Lunes</span><span class="time">8:00–20:00</span></div>
+        <div class="hours-row"><span class="day">Martes</span><span class="time">8:00–20:00</span></div>
+        <div class="hours-row"><span class="day">Miércoles</span><span class="time">8:00–20:00</span></div>
+        <div class="hours-row"><span class="day">Jueves</span><span class="time">8:00–20:00</span></div>
+        <div class="hours-row"><span class="day">Viernes</span><span class="time">8:00–20:00</span></div>
+        <div class="hours-row"><span class="day">Sábado</span><span class="time">8:00–20:00</span></div>
+        <div class="hours-row wrong today"><span class="day">Domingo (hoy)</span><span class="time">9:00–15:00</span></div>
+      </div>
+      <div class="hours-note">
+        <span class="icon">⚠️</span>
+        <span><strong>Reportado como incorrecto:</strong> 3 personas dicen que el lugar está cerrado los domingos.</span>
+      </div>
+    </div>
+
+    <!-- Menu -->
+    <div class="section">
+      <div class="section-title">Menú</div>
+      <div class="menu-empty">
+        <div style="font-size:32px;opacity:0.4">📋</div>
+        <div>Menú no agregado</div>
+        <div style="font-size:12px">El dueño aún no ha subido un menú</div>
+      </div>
+    </div>
+
+    <!-- Updates / Posts -->
+    <div class="section">
+      <div class="section-title">Novedades</div>
+      <div class="post-empty">
+        Sin publicaciones en los últimos 8 meses
+      </div>
+    </div>
+
+    <!-- Reviews -->
+    <div class="section">
+      <div class="section-title">Reseñas (27)</div>
+
+      <div class="review">
+        <div class="review-header">
+          <div class="review-avatar">M</div>
+          <div>
+            <div class="review-name">Mariana López</div>
+            <div class="review-meta">hace 2 semanas</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">El pan está delicioso, la atención muy amable. Pero abrí Maps un domingo y me lancé pensando que estaba abierto y estaba cerrado 😞</div>
+      </div>
+
+      <div class="review">
+        <div class="review-header">
+          <div class="review-avatar b">D</div>
+          <div>
+            <div class="review-name">Diego R.</div>
+            <div class="review-meta">hace 1 mes</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★☆</div>
+        <div class="review-text">Buen café y conchas. ¿Tienen opciones sin azúcar? Las fotos no ayudan a saber qué venden.</div>
+      </div>
+
+      <div class="review">
+        <div class="review-header">
+          <div class="review-avatar c">P</div>
+          <div>
+            <div class="review-name">Paola Méndez</div>
+            <div class="review-meta">hace 2 meses</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">Mi panadería favorita del rumbo. Los hojaldres recién hechos en la mañana.</div>
+      </div>
+
+      <div class="empty-line" style="margin-top:14px;text-align:center">
+        🔴 0 de 27 reseñas respondidas por el dueño
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DESPUÉS VIEW -->
+  <div id="view-despues" class="view">
+
+    <!-- Search bar -->
+    <div class="search-bar">
+      <svg class="menu-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      <span class="query">café ámbar del valle</span>
+      <div class="avatar">A</div>
+    </div>
+
+    <!-- Hero with photo -->
+    <div class="hero">
+      <div class="hero-photo">
+        <div class="hero-overlay-pastry">🥐</div>
+      </div>
+      <div class="photo-count">📷 24</div>
+    </div>
+
+    <!-- Title -->
+    <div class="title-section">
+      <div class="business-name">Café Ámbar</div>
+      <div class="business-meta">
+        <span class="rating">4.7 <span class="stars">★★★★★</span></span>
+        <a class="review-link">(43)</a>
+        <span class="review-badge">+16 en 3 sem</span>
+        <span>·</span>
+        <span>$</span>
+      </div>
+      <div class="category-line">Panadería · Café de especialidad · Repostería</div>
+      <div class="status-line">
+        <span class="status-open">Abierto</span>
+        <span style="color:#5f6368"> · Cierra a las 20:00</span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="action-btn">
+        <div class="ico">📍</div>
+        <div class="lbl">Cómo llegar</div>
+      </button>
+      <button class="action-btn">
+        <div class="ico">📞</div>
+        <div class="lbl">Llamar</div>
+      </button>
+      <button class="action-btn">
+        <div class="ico wa">💬</div>
+        <div class="lbl wa">WhatsApp</div>
+      </button>
+      <button class="action-btn">
+        <div class="ico">📋</div>
+        <div class="lbl">Menú</div>
+      </button>
+      <button class="action-btn">
+        <div class="ico">↗</div>
+        <div class="lbl">Compartir</div>
+      </button>
+    </div>
+
+    <!-- About -->
+    <div class="section">
+      <div class="section-title">Acerca de</div>
+      <div class="about-text">
+        Panadería artesanal y café de especialidad en el corazón de Del Valle. Horneamos diariamente desde las 6:30 am: conchas, hojaldres, bollería francesa y panes de masa madre. Tostamos nuestro café en lote pequeño. Espacio acogedor con wifi gratis, terraza y opciones veganas. Lugar pet friendly. A 2 cuadras de av. Insurgentes.
+      </div>
+      <div class="attribute-chips">
+        <span class="chip">📶 Wifi gratis</span>
+        <span class="chip">🌳 Terraza</span>
+        <span class="chip">🐕 Pet friendly</span>
+        <span class="chip">🌱 Opciones veganas</span>
+        <span class="chip">💳 Acepta tarjetas</span>
+        <span class="chip">♿ Accesible</span>
+      </div>
+    </div>
+
+    <!-- Photos -->
+    <div class="section">
+      <div class="section-title">Fotos (24)</div>
+      <div class="photos-grid">
+        <div class="photo-thumb nice-1"><span class="icon-overlay">🥐</span></div>
+        <div class="photo-thumb nice-2"><span class="icon-overlay">☕</span></div>
+        <div class="photo-thumb nice-3"><span class="icon-overlay">🍞</span></div>
+        <div class="photo-thumb nice-4"><span class="icon-overlay">🥖</span></div>
+        <div class="photo-thumb nice-5"><span class="icon-overlay">🧁</span></div>
+        <div class="photo-thumb more">+19</div>
+      </div>
+    </div>
+
+    <!-- Hours -->
+    <div class="section">
+      <div class="section-title">Horario</div>
+      <div class="hours-list">
+        <div class="hours-row"><span class="day">Lunes</span><span class="time">7:30–20:00</span></div>
+        <div class="hours-row"><span class="day">Martes</span><span class="time">7:30–20:00</span></div>
+        <div class="hours-row"><span class="day">Miércoles</span><span class="time">7:30–20:00</span></div>
+        <div class="hours-row"><span class="day">Jueves</span><span class="time">7:30–20:00</span></div>
+        <div class="hours-row"><span class="day">Viernes</span><span class="time">7:30–21:00</span></div>
+        <div class="hours-row"><span class="day">Sábado</span><span class="time">8:00–21:00</span></div>
+        <div class="hours-row today"><span class="day">Domingo (hoy)</span><span class="time">8:00–15:00</span></div>
+      </div>
+    </div>
+
+    <!-- Menu -->
+    <div class="section">
+      <div class="section-title">Menú</div>
+      <div class="menu-sections">
+        <div class="menu-section">
+          <div class="menu-section-title">Panadería</div>
+          <div class="menu-item"><span>Concha tradicional</span><span class="price">$22</span></div>
+          <div class="menu-item"><span>Croissant mantequilla</span><span class="price">$38</span></div>
+          <div class="menu-item"><span>Pan de masa madre (medio)</span><span class="price">$95</span></div>
+          <div class="menu-item"><span>Hojaldre de jamón y queso</span><span class="price">$45</span></div>
+        </div>
+        <div class="menu-section">
+          <div class="menu-section-title">Café</div>
+          <div class="menu-item"><span>Espresso</span><span class="price">$32</span></div>
+          <div class="menu-item"><span>Cappuccino</span><span class="price">$48</span></div>
+          <div class="menu-item"><span>Latte (avena/almendra +$8)</span><span class="price">$52</span></div>
+          <div class="menu-item"><span>Cold brew de la casa</span><span class="price">$55</span></div>
+        </div>
+        <div class="menu-section">
+          <div class="menu-section-title">Pasteles</div>
+          <div class="menu-item"><span>Cheesecake del día</span><span class="price">$75</span></div>
+          <div class="menu-item"><span>Pay de limón</span><span class="price">$70</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Updates / Posts -->
+    <div class="section">
+      <div class="section-title">Novedades</div>
+      <div class="posts-list">
+        <div class="post-card">
+          <div class="post-img"><span style="font-size:40px">🥐</span></div>
+          <div class="post-body">
+            <div class="post-title">Hojaldre nuevo</div>
+            Probamos el hojaldre de cacao con avellana. Ven a opinar.
+          </div>
+        </div>
+        <div class="post-card">
+          <div class="post-img b"><span style="font-size:40px">☕</span></div>
+          <div class="post-body">
+            <div class="post-title">Café del mes</div>
+            Tueste de Chiapas, notas de chocolate y cereza. Hasta agotar.
+          </div>
+        </div>
+        <div class="post-card">
+          <div class="post-img c"><span style="font-size:40px">🎉</span></div>
+          <div class="post-body">
+            <div class="post-title">Promo de la semana</div>
+            Lun a vie 8–10 am: café + concha $55.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviews -->
+    <div class="section">
+      <div class="section-title">Reseñas (43)</div>
+
+      <div class="review">
+        <div class="review-header">
+          <div class="review-avatar">M</div>
+          <div>
+            <div class="review-name">Mariana López</div>
+            <div class="review-meta">hace 2 semanas</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">El pan está delicioso, la atención muy amable. Pero abrí Maps un domingo y me lancé pensando que estaba abierto y estaba cerrado 😞</div>
+        <div class="owner-reply">
+          <div class="owner-reply-label">Respuesta del dueño · hace 2 sem</div>
+          <div class="owner-reply-text">Mariana, gracias por venir y disculpa el malentendido. Ya corregimos el horario en Google: domingos abrimos de 8:00 a 15:00. Te invitamos un café la próxima 🙏 — Andrea</div>
+        </div>
+      </div>
+
+      <div class="review">
+        <div class="review-header">
+          <div class="review-avatar b">D</div>
+          <div>
+            <div class="review-name">Diego R.</div>
+            <div class="review-meta">hace 1 mes</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★☆</div>
+        <div class="review-text">Buen café y conchas. ¿Tienen opciones sin azúcar? Las fotos no ayudan a saber qué venden.</div>
+        <div class="owner-reply">
+          <div class="owner-reply-label">Respuesta del dueño · hace 1 mes</div>
+          <div class="owner-reply-text">Diego, sí tenemos pan integral sin azúcar añadida y café con leche de avena o almendra. Acabamos de actualizar el menú y las fotos en Maps para que sea más claro. ¡Te esperamos! — Andrea</div>
+        </div>
+      </div>
+
+      <div class="review">
+        <div class="review-header">
+          <div class="review-avatar c">P</div>
+          <div>
+            <div class="review-name">Paola Méndez</div>
+            <div class="review-meta">hace 2 meses</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">Mi panadería favorita del rumbo. Los hojaldres recién hechos en la mañana.</div>
+        <div class="owner-reply">
+          <div class="owner-reply-label">Respuesta del dueño · hace 2 meses</div>
+          <div class="owner-reply-text">¡Gracias Paola! Nos alegra muchísimo. Los hojaldres salen del horno a las 7:45 todos los días 😊 — Andrea</div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;text-align:center;color:#137333;font-size:13px;font-weight:500">
+        ✅ 100% de reseñas nuevas respondidas en menos de 24 h
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function setView(which) {
+  document.getElementById('view-antes').classList.toggle('active', which === 'antes');
+  document.getElementById('view-despues').classList.toggle('active', which === 'despues');
+  document.getElementById('btn-antes').classList.toggle('active', which === 'antes');
+  document.getElementById('btn-despues').classList.toggle('active', which === 'despues');
+  // Scroll to top for impact
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+<!-- BOTÓN FLOTANTE WHATSAPP -->
+<a class="wa-float" href="https://wa.me/525544780025?text=Hola%2C%20vi%20tu%20p%C3%A1gina%20de%20paquetes" target="_blank" rel="noopener" aria-label="Escríbeme por WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+</body>
+</html>
